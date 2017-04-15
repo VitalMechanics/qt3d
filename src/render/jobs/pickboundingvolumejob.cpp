@@ -237,7 +237,7 @@ void PickBoundingVolumeJob::dispatchPickEvents(const QMouseEvent &event,
     // If we have hits
     if (!sphereHits.isEmpty()) {
 
-        const bool trianglePickingRequested = (m_renderSettings->pickResultMode() == QPickingSettings::AllPicks);
+        const bool trianglePickingRequested = (m_renderSettings->pickMethod() == QPickingSettings::TrianglePicking);
         // Note: how can we control that we want the first/last/all elements along the ray to be picked
 
         // How do we differentiate betwnee an Entity with no GeometryRenderer and one with one, both having
@@ -263,7 +263,7 @@ void PickBoundingVolumeJob::dispatchPickEvents(const QMouseEvent &event,
                 // Send the corresponding event
                 QVector3D localIntersection = hit.m_intersection;
                 if (entity && entity->worldTransform())
-                    localIntersection = hit.m_intersection * entity->worldTransform()->inverted();
+                    localIntersection = entity->worldTransform()->inverted() * hit.m_intersection;
 
                 QPickEventPtr pickEvent;
                 if (trianglePickingRequested)
