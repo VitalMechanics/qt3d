@@ -314,6 +314,9 @@ void PickBoundingVolumeJob::dispatchPickEvents(const QMouseEvent &event,
                             m_hoveredPickers.push_back(objectPickerHandle);
                         }
                     }
+                    if (!objectPicker->isPressed() && objectPicker->isHoverEnabled()) {
+                        objectPicker->onMoved(pickEvent);
+                    }
                     break;
                 }
 
