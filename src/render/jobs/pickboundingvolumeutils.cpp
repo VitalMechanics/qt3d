@@ -59,6 +59,7 @@ namespace PickingUtils {
 
 void ViewportCameraAreaGatherer::visit(FrameGraphNode *node)
 {
+    if (node->nodeType() == FrameGraphNode::RenderTarget) return;
     const auto children = node->children();
     for (Render::FrameGraphNode *n : children)
         visit(n);
